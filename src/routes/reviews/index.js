@@ -1,16 +1,16 @@
 const express = require("express")
 const db = require("../../db")
 
-const studentRouter = express.Router();
+const reviewRouter = express.Router();
 
 
-studentRouter.get("/", async(req, res)=>{
+reviewRouter.get("/", async(req, res)=>{
     
     const response = await db.query('SELECT * FROM "reviews"')
     res.send(response.rows)
 })
 
-studentRouter.get("/:id", async (req, res)=>{
+reviewRouter.get("/:id", async (req, res)=>{
     const response = await db.query('SELECT * FROM "reviews" WHERE _id= $1', 
                                                                                         [ req.params.id ])
 
@@ -20,12 +20,12 @@ studentRouter.get("/:id", async (req, res)=>{
     res.send(response.rows[0])
 })
 
-// studentRouter.post("/checkEmail", async(req, res)=>{
-//     const checkEmail = await db.query(`SELECT _id, firstname, surname, email, dateOfBirth FROM "students" WHERE email= $1`,[req.body.email])
+// reviewRouter.post("/checkEmail", async(req, res)=>{
+//     const checkEmail = await db.query(`SELECT _id, firstname, surname, email, dateOfBirth FROM "reviews" WHERE email= $1`,[req.body.email])
     
 //     if(checkEmail.rowCount===0){
 //        // res.send("not found")
-//         const response = await db.query(`INSERT INTO "students" (firstname, surname, email, dateOfBirth) 
+//         const response = await db.query(`INSERT INTO "reviews" (firstname, surname, email, dateOfBirth) 
 //                                      Values ($1, $2, $3, $4)
 //                                      RETURNING *`, 
 //                                     [ req.body.firstname, req.body.surname, req.body.email, req.body.dateofbirth ])
@@ -37,11 +37,11 @@ studentRouter.get("/:id", async (req, res)=>{
     
 // })
 
-studentRouter.post("/", async (req, res)=> {
-    const response = await db.query(`INSERT INTO "reviews" (firstname, surname, email, dateOfBirth) 
-                                     Values ($1, $2, $3, $4)
+reviewRouter.post("/", async (req, res)=> {
+    const response = await db.query(`INSERT INTO "reviews" (comment, rate, productid) 
+                                     Values ($1, $2, $3)
                                      RETURNING *`, 
-                                    [ req.body.firstname, req.body.surname, req.body.email, req.body.dateofbirth ])
+                                    [ req.body.comment, req.body.rate, req.body.productid])
     
   
     
@@ -49,7 +49,7 @@ studentRouter.post("/", async (req, res)=> {
     res.send(response.rows[0])
 })
 
-studentRouter.put("/:id", async (req, res)=> {
+reviewRouter.put("/:id", async (req, res)=> {
     try {
         let params = []
         let query = 'UPDATE "reviews" SET '
@@ -79,7 +79,7 @@ studentRouter.put("/:id", async (req, res)=> {
     }
 })
 
-studentRouter.delete("/:id", async (req, res) => {
+reviewRouter.delete("/:id", async (req, res) => {
     const response = await db.query(`DELETE FROM "reviews" WHERE _id = $1`, [ req.params.id ])
 
     if (response.rowCount === 0)
@@ -88,4 +88,4 @@ studentRouter.delete("/:id", async (req, res) => {
     res.send("OK")
 })
 
-module.exports = studentRouter
+module.exports = reviewRouter
