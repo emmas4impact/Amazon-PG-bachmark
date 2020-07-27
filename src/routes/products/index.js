@@ -114,11 +114,11 @@ router.put("/:id", async (req, res)=> {
         let params = []
         let query = 'UPDATE "products" SET '
         for (bodyParamName in req.body) {
-            query += // for each element in the body I'll add something like parameterName = $Position
-                (params.length > 0 ? ", " : '') + //I'll add a coma before the parameterName for every parameter but the first
-                bodyParamName + " = $" + (params.length + 1) // += Category = $1 
+            query +=
+                (params.length > 0 ? ", " : '') +
+                bodyParamName + " = $" + (params.length + 1) 
 
-            params.push(req.body[bodyParamName]) //save the current body parameter into the params array
+            params.push(req.body[bodyParamName])
         }
 
         params.push(req.params.id) //push the asin into the array
