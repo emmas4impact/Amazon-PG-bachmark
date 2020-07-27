@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/emmas4impact/StudentProfolio-pg.git"
+    "url": "git+https://github.com/emmas4impact/Amazon-PG-bachmark.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/emmas4impact/StudentProfolio-pg/issues"
+    "url": "https://github.com/emmas4impact/Amazon-PG-bachmark/issues"
   },
-  "homepage": "https://github.com/emmas4impact/StudentProfolio-pg#readme",
+  "homepage": "https://github.com/emmas4impact/Amazon-PG-bachmark#readme",
   "devDependencies": {
     "nodemon": "^2.0.4"
   },
